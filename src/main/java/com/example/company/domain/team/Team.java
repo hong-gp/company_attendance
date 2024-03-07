@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@NoArgsConstructor
 public class Team {
 
     @Id
@@ -28,28 +30,10 @@ public class Team {
     @OneToMany
     List<Employee> employees;
 
-    protected Team() {}
-
     public Team(String name, Integer vacationDeadline) {
         this.name = name;
         this.memberCount = 0L;
         this.vacationDeadline = vacationDeadline;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Long getMemberCount() {
-        return memberCount;
-    }
-
-    public Integer getVacationDeadline() {
-        return vacationDeadline;
     }
 
     public void incrementMemberCount() {

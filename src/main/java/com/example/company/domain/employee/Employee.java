@@ -4,12 +4,16 @@ import com.example.company.domain.employee.attendance.AttendanceRecord;
 import com.example.company.domain.team.Team;
 import com.example.company.domain.vacation.Vacation;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@NoArgsConstructor
 public class Employee {
 
     @Id
@@ -42,8 +46,6 @@ public class Employee {
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private List<Vacation> vacations = new ArrayList<>();
 
-    protected Employee() {}
-
     public Employee(String name, Team team, EmployeeRole role, LocalDate birthday, LocalDate workStartDate, Long vacationCount) {
         this.name = name;
         this.team = team;
@@ -51,34 +53,6 @@ public class Employee {
         this.birthday = birthday;
         this.workStartDate = workStartDate;
         this.vacationCount = vacationCount;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public EmployeeRole getRole() {
-        return role;
-    }
-
-    public LocalDate getBirthday() {
-        return birthday;
-    }
-
-    public LocalDate getWorkStartDate() {
-        return workStartDate;
-    }
-
-    public Long getVacationCount() {
-        return vacationCount;
     }
 
     public void startWork() {
@@ -93,6 +67,10 @@ public class Employee {
                 return;
             }
         }
+    }
+
+    public void addVacation(LocalDate startDate, LocalDate endDate) {
+        this.vacations.add(new Vacation(this, startDate, endDate));
     }
 
     public void assignManager() {

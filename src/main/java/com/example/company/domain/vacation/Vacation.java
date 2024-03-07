@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Entity
+@Getter
+@NoArgsConstructor
 public class Vacation {
 
     @Id
@@ -22,27 +24,10 @@ public class Vacation {
 
     private LocalDate endDate;
 
-    protected Vacation() {}
-
     public Vacation(Employee employee, LocalDate startDate, LocalDate endDate) {
         this.employee = employee;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
 }

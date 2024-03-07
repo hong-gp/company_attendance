@@ -2,27 +2,21 @@ package com.example.company.service.vacation;
 
 import com.example.company.domain.employee.Employee;
 import com.example.company.domain.employee.EmployeeRepository;
-import com.example.company.domain.vacation.Vacation;
 import com.example.company.domain.vacation.VacationRepository;
 import com.example.company.dto.vacation.request.VacationRegisterRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class VacationService {
 
     private final VacationRepository vacationRepository;
     private final EmployeeRepository employeeRepository;
-
-    public VacationService(VacationRepository vacationRepository, EmployeeRepository employeeRepository) {
-        this.vacationRepository = vacationRepository;
-        this.employeeRepository = employeeRepository;
-    }
 
     @Transactional
     public void registerVacation(VacationRegisterRequest request) {
@@ -49,6 +43,6 @@ public class VacationService {
         }
 
         // 휴가 기록 저장
-        vacationRepository.save(new Vacation(employee, request.getStartDate(), request.getEndDate()));
+        employee.addVacation(request.getStartDate(), request.getEndDate());
     }
 }

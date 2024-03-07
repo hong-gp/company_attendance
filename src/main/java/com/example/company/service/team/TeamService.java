@@ -6,6 +6,7 @@ import com.example.company.domain.team.Team;
 import com.example.company.domain.team.TeamRepository;
 import com.example.company.dto.team.request.TeamRequest;
 import com.example.company.dto.team.response.TeamResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,15 +15,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class TeamService {
 
     private final TeamRepository teamRepository;
     private final EmployeeRepository employeeRepository;
-
-    public TeamService(TeamRepository teamRepository, EmployeeRepository employeeRepository) {
-        this.teamRepository = teamRepository;
-        this.employeeRepository = employeeRepository;
-    }
 
     @Transactional
     public void registerTeam(TeamRequest request) {

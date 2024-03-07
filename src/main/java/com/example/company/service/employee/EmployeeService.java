@@ -14,6 +14,7 @@ import com.example.company.dto.employee.request.EmployeeWorkStartRequest;
 import com.example.company.dto.employee.response.AttendanceDateResponse;
 import com.example.company.dto.employee.response.AttendanceDetailResponse;
 import com.example.company.dto.employee.response.EmployeeResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,19 +26,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
     private final AttendanceRecordRepository attendanceRecordRepository;
     private final TeamRepository teamRepository;
     private final VacationRepository vacationRepository;
-
-    public EmployeeService(EmployeeRepository employeeRepository, AttendanceRecordRepository attendanceRecordRepository, TeamRepository teamRepository, VacationRepository vacationRepository) {
-        this.employeeRepository = employeeRepository;
-        this.attendanceRecordRepository = attendanceRecordRepository;
-        this.teamRepository = teamRepository;
-        this.vacationRepository = vacationRepository;
-    }
 
     @Transactional
     public void registerEmployee(EmployeeRequest request) {
@@ -141,6 +136,7 @@ public class EmployeeService {
         List<AttendanceDateResponse> workDate = new ArrayList<>();
         Long sum = 0L;
         for (int day = 1; day <= date.lengthOfMonth(); day++) {
+            // 1일부터 마지막날까지 날짜를 받는 변수
             LocalDate localDate = LocalDate.of(date.getYear(), date.getMonth(), day);
             AttendanceRecord record = attendanceRecordRepository.findByEmployeeIdAndWorkDate(employeeId, localDate).orElse(null);
             long workingMinutes = record == null ? 0 : record.workingMinutes();

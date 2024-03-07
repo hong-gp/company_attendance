@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
+@Getter
+@NoArgsConstructor
 public class AttendanceRecord {
 
     @Id
@@ -25,32 +27,10 @@ public class AttendanceRecord {
 
     private LocalTime workEnd;
 
-    protected AttendanceRecord() {}
-
     public AttendanceRecord(Employee employee) {
         this.employee = employee;
         this.workDate = LocalDate.now();
         this.workStart = LocalTime.now();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public LocalDate getWorkDate() {
-        return workDate;
-    }
-
-    public LocalTime getWorkStart() {
-        return workStart;
-    }
-
-    public LocalTime getWorkEnd() {
-        return workEnd;
     }
 
     public void endWork() {
